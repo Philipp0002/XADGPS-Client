@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">XADGPS-Client</string>
+    <string name="prompt_username">Username</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="login_failed">Login failed</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
+    <string name="tracking">Tracking</string>
+    <string name="devices">Devices</string>
+    <string name="device_id">ID</string>
+    <string name="device_groupid">GroupID</string>
+    <string name="device_serialno">SerialNo.</string>
+    <string name="device_car">Car</string>
+    <string name="device_model">Model</string>
+    <string name="device_status">Status</string>
+    <string name="device_iccid">ICCID</string>
+    <string name="device_long_latitude">Long-/Latitude</string>
+    <string name="device_stop_time">Stop Time</string>
+    <string name="device_course">Course</string>
+    <string name="device_coursedesc">Heading Direction</string>
+    <string name="device_type">Type</string>
+    <string name="device_fortification">Fortification</string>
+    <string name="device_style">Style</string>
+    <string name="device_stopped">Parked</string>
+    <string name="device_last_communication">Last Communication</string>
+    <string name="device_speed">Speed</string>
+    <string name="device_distance">Distance</string>
+    <string name="device_gps_signal">GPS Signal</string>
+    <string name="device_gsm_signal">GSM Signal</string>
+    <string name="device_parked">Parked</string>
+    <string name="device_moving">Moving</string>
+</resources>

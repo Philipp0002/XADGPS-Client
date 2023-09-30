@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/standard_bottom_sheet"
+    style="@style/Widget.Material3.BottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- Drag handle for accessibility -->
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:id="@+id/drag_handle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/deviceName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="TextView"
+                android:textAppearance="?attr/textAppearanceHeadlineLarge"
+                android:textColor="?attr/colorOnSurface" />
+
+            <TextView
+                android:id="@+id/deviceGroupName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="TextView"
+                android:textAppearance="?attr/textAppearanceHeadlineSmall"
+                android:textColor="?attr/colorOnSurface" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="8dp"
+                android:stretchColumns="1">
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_id"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceId"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_groupid"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceGroupId"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_serialno"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceSerial"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_car"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceCar"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_model"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceModel"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_status"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceStatus"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_speed"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceSpeed"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_distance"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceDistance"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_iccid"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceICCID"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_long_latitude"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceLonLat"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_stopped"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceStopped"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_stop_time"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceStopTime"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_course"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceCourse"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_coursedesc"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceCourseDesc"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_type"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceType"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_fortification"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceFortification"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_style"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceStyle"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_gps_signal"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceGPSSignal"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_gsm_signal"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceGSMSignal"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+                <TableRow>
+                    <TextView
+                        android:text="@string/device_last_communication"
+                        android:padding="3dip" />
+                    <TextView
+                        android:id="@+id/deviceLastCommunication"
+                        android:text="Undefined"
+                        android:gravity="right"
+                        android:padding="3dip" />
+                </TableRow>
+
+            </TableLayout>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
