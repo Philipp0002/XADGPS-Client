@@ -34,6 +34,8 @@
     <string name="device_parked">Geparkt</string>
     <string name="device_moving">Fährt</string>
 
+    <string name="action_show_on_map">Auf Karte anzeigen</string>
+
     <string name="tracking_loading_header">Tracking lädt...</string>
     <string name="tracking_loading_body">Die Position deiner Tracker wird ermittelt.</string>
 </resources>

@@ -44,12 +44,10 @@ import de.raffaelhahn.xadgps_client.services.DeviceListService;
 public class TrackingFragment extends Fragment implements DeviceListService.DeviceListUpdateListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    public static final String ARG_PARAM_SHOW_DEVICE_ID = "paramShowDeviceId";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String paramShowDeviceId;
 
     private MapView map = null;
     private MaterialCardView trackingLoadingView = null;
@@ -62,30 +60,11 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment TrackingFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TrackingFragment newInstance(String param1, String param2) {
-        TrackingFragment fragment = new TrackingFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            paramShowDeviceId = getArguments().getString(ARG_PARAM_SHOW_DEVICE_ID);
         }
     }
 
@@ -126,8 +105,7 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
         map.setFlingEnabled(true);
         map.setVerticalMapRepetitionEnabled(false);
         map.setScrollableAreaLimitLatitude(MapView.getTileSystem().getMaxLatitude(), MapView.getTileSystem().getMinLatitude(), 0);
-
-        if(preferences.contains("myLatestLat") && preferences.contains("myLatestLon")){
+        if(preferences.contains("myLatestLat") && preferences.contains("myLatestLon") && paramShowDeviceId == null){
             mapController.setZoom(20.0);
             mapController.setCenter(new GeoPoint(preferences.getFloat("myLatestLat", 0), preferences.getFloat("myLatestLon", 0)));
         }
@@ -138,8 +116,10 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
         mLocationOverlay.runOnFirstFix(() -> {
             if(getActivity() != null) {
                 getActivity().runOnUiThread(() -> {
-                    mapController.setZoom(20.0);
-                    mapController.setCenter(mLocationOverlay.getMyLocation());
+                    if(paramShowDeviceId == null) {
+                        mapController.setZoom(20.0);
+                        mapController.setCenter(mLocationOverlay.getMyLocation());
+                    }
                     editor.putFloat("myLatestLat", (float) mLocationOverlay.getMyLocation().getLatitude());
                     editor.putFloat("myLatestLon", (float) mLocationOverlay.getMyLocation().getLongitude());
                     editor.apply();
@@ -225,6 +205,11 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
                 //marker.setIcon(getResources().getDrawable(R.drawable.router));
                 map.getOverlays().add(marker);
                 map.invalidate();
+                if(paramShowDeviceId != null && paramShowDeviceId.equals(device.id)) {
+                    IMapController mapController = map.getController();
+                    mapController.setZoom(20.0);
+                    mapController.setCenter(new GeoPoint(lat, lon));
+                }
             }
         });
     }

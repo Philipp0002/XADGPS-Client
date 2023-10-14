@@ -78,9 +78,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openFragment(Class clazz) {
+        openFragment(clazz, null);
+    }
+
+    private void openFragment(Class clazz, Bundle args) {
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
-                .replace(R.id.fragment_container_view, clazz, null)
+                .replace(R.id.fragment_container_view, clazz, args)
                 .commit();
     }
 
@@ -106,6 +110,16 @@ public class MainActivity extends AppCompatActivity {
         if(deviceListService != null) {
             deviceListService.stopRequestDeviceListUpdate();
         }
+    }
+
+    public void showDeviceOnMap(String deviceId) {
+        Bundle args = new Bundle();
+        args.putString(TrackingFragment.ARG_PARAM_SHOW_DEVICE_ID, deviceId);
+
+        openFragment(TrackingFragment.class, args);
+        //bottomNavigationView.setSelectedItemId(R.id.item_tracking);
+        //bottomNavigationView.getMenu().getItem(0).setChecked(true);
+        bottomNavigationView.getMenu().findItem(R.id.item_tracking).setChecked(true);
     }
 
 

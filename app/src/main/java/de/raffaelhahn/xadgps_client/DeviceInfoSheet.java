@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +44,7 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
     private TextView deviceIsStopped;
     private TextView deviceSpeed;
     private TextView deviceDistance;
+    private Button deviceShowOnMapButton;
 
     public DeviceInfoSheet() {
     }
@@ -95,6 +97,10 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
         deviceIsStopped = view.findViewById(R.id.deviceStopped);
         deviceSpeed = view.findViewById(R.id.deviceSpeed);
         deviceDistance = view.findViewById(R.id.deviceDistance);
+        deviceShowOnMapButton = view.findViewById(R.id.deviceShowOnMap);
+
+        deviceShowOnMapButton.setVisibility(View.GONE);
+        deviceShowOnMapButton.setOnClickListener(v -> showDeviceOnMap());
     }
 
     private void updateView(Device device) {
@@ -120,6 +126,7 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
         deviceIsStopped.setText("1".equals(device.isStop) ? R.string.yes : R.string.no);
         deviceSpeed.setText(device.speed + " km/h");
         deviceDistance.setText(device.distance);
+        deviceShowOnMapButton.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -148,5 +155,10 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
                 getActivity().runOnUiThread(() -> updateView(optDevice.get()));
             }
         }
+    }
+
+    public void showDeviceOnMap() {
+        ((MainActivity)getActivity()).showDeviceOnMap(id);
+        this.dismiss();
     }
 }
