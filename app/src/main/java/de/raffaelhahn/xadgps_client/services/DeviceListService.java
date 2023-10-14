@@ -7,6 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Timer;
@@ -23,11 +24,21 @@ public class DeviceListService {
     private Context context;
     private Timer deviceListUpdateTimer;
     private ArrayList<DeviceListUpdateListener> deviceListUpdateListeners;
+    private boolean initialDeviceListLoaded = false;
+    private boolean initialDeviceTrackingLoaded = false;
 
     public DeviceListService(Context context) {
         this.deviceList = new ArrayList<>();
         this.context = context;
         this.deviceListUpdateListeners = new ArrayList<>();
+    }
+
+    public boolean isInitialDeviceListLoaded() {
+        return initialDeviceListLoaded;
+    }
+
+    public boolean isInitialDeviceTrackingLoaded() {
+        return initialDeviceTrackingLoaded;
     }
 
     public void startRequestDeviceListUpdate() {
@@ -83,6 +94,7 @@ public class DeviceListService {
                     updateDeviceTracking(device);
 
                 }
+                initialDeviceListLoaded = true;
                 deviceListUpdateListeners.forEach(listener -> listener.onDeviceListUpdate(deviceList));
             }
 
@@ -107,6 +119,7 @@ public class DeviceListService {
             @Override
             public void received(JSONObject data) throws Exception {
                 device.setFromJson(data);
+                initialDeviceTrackingLoaded = true;
                 deviceListUpdateListeners.forEach(listener -> listener.onDeviceListUpdate(deviceList));
             }
 

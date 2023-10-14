@@ -33,4 +33,7 @@
     <string name="device_gsm_signal">GSM Signal</string>
     <string name="device_parked">Parked</string>
     <string name="device_moving">Moving</string>
+
+    <string name="tracking_loading_header">Loading tracking...</string>
+    <string name="tracking_loading_body">The location of your trackers is being determined.</string>
 </resources>

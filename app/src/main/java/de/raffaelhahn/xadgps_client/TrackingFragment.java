@@ -18,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.material.card.MaterialCardView;
+
 import org.osmdroid.api.IMapController;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -50,6 +52,7 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
     private String mParam2;
 
     private MapView map = null;
+    private MaterialCardView trackingLoadingView = null;
     private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MyLocationNewOverlay mLocationOverlay;
 
@@ -96,6 +99,11 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        trackingLoadingView = view.findViewById(R.id.tracking_loading);
+        if(((MainActivity) getActivity()).deviceListService.isInitialDeviceTrackingLoaded()){
+            trackingLoadingView.setVisibility(View.GONE);
+        }
 
         SharedPreferences preferences = getContext().getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
@@ -202,6 +210,7 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
     @Override
     public void onDeviceListUpdate(ArrayList<Device> deviceList) {
         getActivity().runOnUiThread(() -> {
+            trackingLoadingView.setVisibility(View.GONE);
             map.getOverlays().clear();
             map.getOverlays().add(mLocationOverlay);
             for (Device device : deviceList) {
