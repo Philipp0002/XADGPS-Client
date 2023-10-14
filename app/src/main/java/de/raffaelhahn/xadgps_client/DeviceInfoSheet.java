@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,7 +41,9 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
     private TextView deviceSerialNumber;
     private TextView deviceLastCommunication;
     private TextView deviceGPSSignal;
+    private ImageView deviceGPSSignalIcon;
     private TextView deviceGSMSignal;
+    private ImageView deviceGSMSignalIcon;
     private TextView deviceIsStopped;
     private TextView deviceSpeed;
     private TextView deviceDistance;
@@ -93,7 +96,9 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
         deviceCourseDesc = view.findViewById(R.id.deviceCourseDesc);
         deviceLastCommunication = view.findViewById(R.id.deviceLastCommunication);
         deviceGPSSignal = view.findViewById(R.id.deviceGPSSignal);
+        deviceGPSSignalIcon = view.findViewById(R.id.deviceGPSSignalIcon);
         deviceGSMSignal = view.findViewById(R.id.deviceGSMSignal);
+        deviceGSMSignalIcon = view.findViewById(R.id.deviceGSMSignalIcon);
         deviceIsStopped = view.findViewById(R.id.deviceStopped);
         deviceSpeed = view.findViewById(R.id.deviceSpeed);
         deviceDistance = view.findViewById(R.id.deviceDistance);
@@ -104,6 +109,8 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
     }
 
     private void updateView(Device device) {
+        int gpsSignal = Integer.parseInt(device.GPS);
+        int gsmSignal = Integer.parseInt(device.GSM);
         deviceName.setText(device.name);
         deviceStatus.setText(device.status);
         deviceGroupName.setText(device.groupName);
@@ -121,8 +128,10 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
         deviceId.setText(device.id);
         deviceCourseDesc.setText(device.coursedesc);
         deviceLastCommunication.setText(device.lastCommunication);
-        deviceGPSSignal.setText(device.GPS);
-        deviceGSMSignal.setText(device.GSM);
+        deviceGPSSignal.setText(getString(Utils.getGpsHint(gpsSignal)) + " (" + device.GPS + ")");
+        deviceGPSSignalIcon.setImageResource(Utils.getGpsIcon(gpsSignal));
+        deviceGSMSignal.setText(getString(Utils.getGsmHint(gsmSignal)) + " (" + device.GSM + ")");
+        deviceGSMSignalIcon.setImageResource(Utils.getGsmIcon(gsmSignal));
         deviceIsStopped.setText("1".equals(device.isStop) ? R.string.yes : R.string.no);
         deviceSpeed.setText(device.speed + " km/h");
         deviceDistance.setText(device.distance);

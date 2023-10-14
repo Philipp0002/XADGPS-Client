@@ -33,6 +33,10 @@
     <string name="device_gsm_signal">GSM Signal</string>
     <string name="device_parked">Parked</string>
     <string name="device_moving">Moving</string>
+    
+    <string name="signal_strength_strong">Strong</string>
+    <string name="signal_strength_normal">Normal</string>
+    <string name="signal_strength_weak">Poor</string>
 
     <string name="action_show_on_map">Show on map</string>
 

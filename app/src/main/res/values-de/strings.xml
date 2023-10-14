@@ -34,6 +34,10 @@
     <string name="device_parked">Geparkt</string>
     <string name="device_moving">Fährt</string>
 
+    <string name="signal_strength_strong">Stark</string>
+    <string name="signal_strength_normal">Normal</string>
+    <string name="signal_strength_weak">Schwach</string>
+
     <string name="action_show_on_map">Auf Karte anzeigen</string>
 
     <string name="tracking_loading_header">Tracking lädt...</string>

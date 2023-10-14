@@ -241,22 +241,59 @@
                     <TextView
                         android:text="@string/device_gps_signal"
                         android:padding="3dip" />
-                    <TextView
-                        android:id="@+id/deviceGPSSignal"
-                        android:text="Undefined"
-                        android:gravity="right"
-                        android:padding="3dip" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout android:gravity="right">
+
+                        <ImageView
+                            android:layout_margin="3dp"
+                            android:id="@+id/deviceGPSSignalIcon"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:tint="?attr/colorOnBackground"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+
+                        <TextView
+                            android:id="@+id/deviceGPSSignal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="right"
+                            android:padding="3dip"
+                            android:text="Undefined"
+                            app:layout_constraintEnd_toStartOf="@id/deviceGPSSignalIcon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </TableRow>
 
                 <TableRow>
                     <TextView
                         android:text="@string/device_gsm_signal"
                         android:padding="3dip" />
-                    <TextView
-                        android:id="@+id/deviceGSMSignal"
-                        android:text="Undefined"
-                        android:gravity="right"
-                        android:padding="3dip" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:gravity="right">
+
+                        <ImageView
+                            android:layout_margin="3dp"
+                            android:id="@+id/deviceGSMSignalIcon"
+                            android:layout_height="0dp"
+                            android:layout_width="0dp"
+                            app:tint="?attr/colorOnBackground"
+                            app:layout_constraintDimensionRatio="1:1"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" />
+
+                        <TextView
+                            android:id="@+id/deviceGSMSignal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="right"
+                            android:padding="3dip"
+                            android:text="Undefined"
+                            app:layout_constraintEnd_toStartOf="@id/deviceGSMSignalIcon" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 </TableRow>
 
                 <TableRow>
