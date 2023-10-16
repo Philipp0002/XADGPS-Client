@@ -4,6 +4,8 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
+    <string name="page_sign_in">Sign in</string>
+    <string name="page_sign_in_hint">Sign in using your XAD-GPS login credentials.</string>
     <string name="login_failed">Login failed</string>
 
     <string name="yes">Yes</string>
