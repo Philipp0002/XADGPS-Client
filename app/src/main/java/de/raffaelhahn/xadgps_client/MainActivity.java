@@ -9,21 +9,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.osmdroid.config.Configuration;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import de.raffaelhahn.xadgps_client.async.AsyncCallback;
 import de.raffaelhahn.xadgps_client.async.Constants;
-import de.raffaelhahn.xadgps_client.async.GetDeviceListAsync;
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Configuration.getInstance().setUserAgentValue(getPackageName());
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
         if(!sharedPreferences.contains("userId")){

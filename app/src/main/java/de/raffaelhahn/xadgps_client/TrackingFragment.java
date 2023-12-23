@@ -13,7 +13,6 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.CustomZoomButtonsController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -36,25 +34,14 @@ import java.util.ArrayList;
 import de.raffaelhahn.xadgps_client.async.Constants;
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link TrackingFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class TrackingFragment extends Fragment implements DeviceListService.DeviceListUpdateListener {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     public static final String ARG_PARAM_SHOW_DEVICE_ID = "paramShowDeviceId";
+    private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
 
-    // TODO: Rename and change types of parameters
     private String paramShowDeviceId;
-
     private MapView map = null;
     private MaterialCardView trackingLoadingView = null;
-    private final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
     private MyLocationNewOverlay mLocationOverlay;
-
-    //private RotationGestureOverlay mRotationGestureOverlay;
 
     public TrackingFragment() {
         // Required empty public constructor
@@ -207,7 +194,7 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
                 map.invalidate();
                 if(paramShowDeviceId != null && paramShowDeviceId.equals(device.id)) {
                     IMapController mapController = map.getController();
-                    mapController.setZoom(20.0);
+                    mapController.setZoom(map.getZoomLevelDouble());
                     mapController.setCenter(new GeoPoint(lat, lon));
                 }
             }
