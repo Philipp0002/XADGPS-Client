@@ -5,7 +5,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -26,14 +25,16 @@ public class DevicesRecyclerAdapter extends RecyclerView.Adapter<DevicesRecycler
 
     public static class DeviceViewHolder extends RecyclerView.ViewHolder {
         public final TextView deviceName;
-        public final TextView deviceItemDescription;
+        public final TextView deviceState;
+        public final TextView deviceDescription;
 
         public DeviceViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
             deviceName = view.findViewById(R.id.deviceItemName);
-            deviceItemDescription = view.findViewById(R.id.deviceItemDescription);
+            deviceState = view.findViewById(R.id.deviceItemState);
+            deviceDescription = view.findViewById(R.id.deviceItemDescription);
         }
     }
 
@@ -50,9 +51,15 @@ public class DevicesRecyclerAdapter extends RecyclerView.Adapter<DevicesRecycler
     @Override
     public void onBindViewHolder(DeviceViewHolder viewHolder, final int position) {
         Device device = deviceList.get(position);
+        String[] deviceInfoShort = device.getDeviceInfoShort(viewHolder.itemView.getContext());
         viewHolder.deviceName.setText(device.name);
+        String subDescription = deviceInfoShort[0];
+        if(!deviceInfoShort[1].isEmpty()) {
+            subDescription += " (" + deviceInfoShort[1] + ")";
+        }
 
-        viewHolder.deviceItemDescription.setText(device.getDeviceInfoShort(viewHolder.itemView.getContext()));
+        viewHolder.deviceState.setText(deviceInfoShort[0]);
+        viewHolder.deviceDescription.setText(deviceInfoShort[1]);
         viewHolder.itemView.setOnClickListener(a -> listener.onItemClick(device));
     }
 

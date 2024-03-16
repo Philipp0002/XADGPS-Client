@@ -37,6 +37,8 @@ import de.raffaelhahn.xadgps_client.services.DeviceListService;
 public class TrackingFragment extends Fragment implements DeviceListService.DeviceListUpdateListener {
     public static final String ARG_PARAM_SHOW_DEVICE_ID = "paramShowDeviceId";
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 1;
+    private static final String LATEST_LAT_PREF_KEY = "myLatestLat";
+    private static final String LATEST_LON_PREF_KEY = "myLatestLon";
 
     private String paramShowDeviceId;
     private MapView map = null;
@@ -92,9 +94,9 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
         map.setFlingEnabled(true);
         map.setVerticalMapRepetitionEnabled(false);
         map.setScrollableAreaLimitLatitude(MapView.getTileSystem().getMaxLatitude(), MapView.getTileSystem().getMinLatitude(), 0);
-        if(preferences.contains("myLatestLat") && preferences.contains("myLatestLon") && paramShowDeviceId == null){
+        if(preferences.contains(LATEST_LAT_PREF_KEY) && preferences.contains(LATEST_LON_PREF_KEY) && paramShowDeviceId == null){
             mapController.setZoom(20.0);
-            mapController.setCenter(new GeoPoint(preferences.getFloat("myLatestLat", 0), preferences.getFloat("myLatestLon", 0)));
+            mapController.setCenter(new GeoPoint(preferences.getFloat(LATEST_LAT_PREF_KEY, 0), preferences.getFloat(LATEST_LON_PREF_KEY, 0)));
         }
         /*mRotationGestureOverlay = new RotationGestureOverlay(map);
         mRotationGestureOverlay.setEnabled(true);
@@ -107,8 +109,8 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
                         mapController.setZoom(20.0);
                         mapController.setCenter(mLocationOverlay.getMyLocation());
                     }
-                    editor.putFloat("myLatestLat", (float) mLocationOverlay.getMyLocation().getLatitude());
-                    editor.putFloat("myLatestLon", (float) mLocationOverlay.getMyLocation().getLongitude());
+                    editor.putFloat(LATEST_LAT_PREF_KEY, (float) mLocationOverlay.getMyLocation().getLatitude());
+                    editor.putFloat(LATEST_LON_PREF_KEY, (float) mLocationOverlay.getMyLocation().getLongitude());
                     editor.apply();
                 });
             }
@@ -183,12 +185,17 @@ public class TrackingFragment extends Fragment implements DeviceListService.Devi
             for (Device device : deviceList) {
                 double lon = Double.parseDouble(device.longitude);
                 double lat = Double.parseDouble(device.latitude);
+                String[] deviceInfoShort = device.getDeviceInfoShort(getContext());
+                String subDescription = deviceInfoShort[0];
+                if(!deviceInfoShort[1].isEmpty()) {
+                    subDescription += " (" + deviceInfoShort[1] + ")";
+                }
                 if(getActivity() == null || getActivity().isDestroyed()) return;
                 Marker marker = new Marker(map);
                 marker.setPosition(new GeoPoint(lat, lon));
                 marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
                 marker.setTitle(device.name);
-                marker.setSubDescription(device.getDeviceInfoShort(getContext()));
+                marker.setSubDescription(subDescription);
                 //marker.setIcon(getResources().getDrawable(R.drawable.router));
                 map.getOverlays().add(marker);
                 map.invalidate();

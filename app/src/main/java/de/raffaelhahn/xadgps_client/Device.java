@@ -55,20 +55,18 @@ public class Device {
         }
     }
 
-    public String getDeviceInfoShort(Context context) {
-        String description = "";
+    public String[] getDeviceInfoShort(Context context) {
+        String[] description = new String[]{"?", ""};
         if(isStop != null) {
             if ("1".equalsIgnoreCase(isStop)) {
-                description = context.getString(R.string.device_parked);
-
-                if (StopTime != null) {
-                    description += " (" + StopTime + ")";
+                description[0] = context.getString(R.string.device_parked);
+                if(StopTime != null) {
+                    description[1] = StopTime;
                 }
-
             } else {
-                description = context.getString(R.string.device_moving);
+                description[0] = context.getString(R.string.device_moving);
                 if (speed != null) {
-                    description += " (" + speed + " km/h)";
+                    description[1]= speed + " km/h";
                 }
             }
         }
