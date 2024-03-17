@@ -1,6 +1,7 @@
 package de.raffaelhahn.xadgps_client;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.Optional;
 
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
+import de.raffaelhahn.xadgps_client.services.MovementMonitorService;
 
 public class DeviceInfoSheet extends BottomSheetDialogFragment implements DeviceListService.DeviceListUpdateListener {
 
@@ -48,6 +51,9 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
     private TextView deviceSpeed;
     private TextView deviceDistance;
     private Button deviceShowOnMapButton;
+    private MaterialButton deviceNotifyButton;
+
+    private Device deviceRef;
 
     public DeviceInfoSheet() {
     }
@@ -103,12 +109,15 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
         deviceSpeed = view.findViewById(R.id.deviceSpeed);
         deviceDistance = view.findViewById(R.id.deviceDistance);
         deviceShowOnMapButton = view.findViewById(R.id.deviceShowOnMap);
+        deviceNotifyButton = view.findViewById(R.id.deviceNotify);
 
         deviceShowOnMapButton.setVisibility(View.GONE);
         deviceShowOnMapButton.setOnClickListener(v -> showDeviceOnMap());
+        deviceNotifyButton.setOnClickListener(v -> notifyOnMovement());
     }
 
     private void updateView(Device device) {
+        this.deviceRef = device;
         int gpsSignal = Integer.parseInt(device.GPS);
         int gsmSignal = Integer.parseInt(device.GSM);
         deviceName.setText(device.name);
@@ -136,6 +145,11 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
         deviceSpeed.setText(device.speed + " km/h");
         deviceDistance.setText(device.distance);
         deviceShowOnMapButton.setVisibility(View.VISIBLE);
+        if(MovementMonitorService.isMonitoring(getActivity(), deviceRef)) {
+            deviceNotifyButton.setIconResource(R.drawable.no_notify);
+        } else {
+            deviceNotifyButton.setIconResource(R.drawable.notify);
+        }
     }
 
     @Override
@@ -169,5 +183,17 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
     public void showDeviceOnMap() {
         ((MainActivity)getActivity()).showDeviceOnMap(id);
         this.dismiss();
+    }
+
+    private void notifyOnMovement() {
+        if(!MovementMonitorService.isMonitoring(getActivity(), deviceRef)) {
+            boolean started = MovementMonitorService.startMonitoring(getActivity(), deviceRef);
+            if(started) {
+                deviceNotifyButton.setIconResource(R.drawable.no_notify);
+            }
+        } else {
+            MovementMonitorService.stopMonitoring(getActivity(), deviceRef);
+            deviceNotifyButton.setIconResource(R.drawable.notify);
+        }
     }
 }

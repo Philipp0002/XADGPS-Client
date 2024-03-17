@@ -19,6 +19,8 @@ public class GetDeviceListAsync extends AsyncTask<Void, Void, Void> {
     public String paramMapType;
     public String paramLanguage;
 
+    public JSONObject resultObject;
+
     @Override
     protected Void doInBackground(Void... voids) {
         try {
@@ -30,10 +32,9 @@ public class GetDeviceListAsync extends AsyncTask<Void, Void, Void> {
     }
 
     public void runFetch() throws Exception {
-        JSONObject obj = null;
         try {
             Log.d("TESTT", Constants.API_URL + "/GetDeviceList?ID=" + paramUserId + "&TypeID=" + paramTypeId + "&MapType=" + paramMapType + "&Language=" + paramLanguage);
-            obj = AsyncUtils.readJsonFromUrl(Constants.API_URL + "/GetDeviceList?ID=" + paramUserId + "&TypeID=" + paramTypeId + "&MapType=" + paramMapType + "&Language=" + paramLanguage);
+            resultObject = AsyncUtils.readJsonFromUrl(Constants.API_URL + "/GetDeviceList?ID=" + paramUserId + "&TypeID=" + paramTypeId + "&MapType=" + paramMapType + "&Language=" + paramLanguage);
         } catch (java.io.FileNotFoundException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -45,12 +46,14 @@ public class GetDeviceListAsync extends AsyncTask<Void, Void, Void> {
         }
 
 
-        if (obj != null) {
-            callback.received(obj);
-        } else {
-            callback.error();
+        if(callback != null) {
+            if (resultObject != null) {
+                callback.received(resultObject);
+            } else {
+                callback.error();
+            }
+            callback.finished();
         }
-        callback.finished();
     }
 
 }

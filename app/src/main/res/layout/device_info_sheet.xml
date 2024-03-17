@@ -315,17 +315,35 @@
 
             </TableLayout>
 
-            <com.google.android.material.button.MaterialButton
-                style="@style/Widget.Material3.Button.Icon"
-                android:id="@+id/deviceShowOnMap"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_gravity="end"
-                app:icon="@drawable/location"
-                android:text="@string/action_show_on_map"
-                />
+                >
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.IconButton"
+                    android:id="@+id/deviceNotify"
+                    android:layout_marginEnd="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/notify"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    style="@style/Widget.Material3.Button.Icon"
+                    android:id="@+id/deviceShowOnMap"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:icon="@drawable/location"
+                    android:text="@string/action_show_on_map"
+                    />
+
+            </LinearLayout>
+
+
 
         </LinearLayout>
 

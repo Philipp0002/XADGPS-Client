@@ -44,4 +44,8 @@
 
     <string name="tracking_loading_header">Tracking lädt...</string>
     <string name="tracking_loading_body">Die Position deiner Tracker wird ermittelt.</string>
+
+    <string name="monitor_notify_channel_name">Bewegungserkennung</string>
+    <string name="monitor_notify_channel_description">Benachrichtigen lassen bei Bewegung eines Trackers.</string>
+    <string name="monitor_notify_device_moved">⚠ Tracker bewegt</string>
 </resources>

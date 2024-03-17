@@ -9,9 +9,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Field;
 import java.util.Iterator;
 
-public class Device {
-    public String id;
-    public String name;
+public class Device extends NotifyDevice {
     public String sn;
     public String groupID;
     public String groupName;
@@ -21,10 +19,6 @@ public class Device {
     public String iccid;
     public String icon;
     public String iconid;
-    public String olat;
-    public String olng;
-    public String latitude;
-    public String longitude;
     public String StopTime;
     public String iconurl;
     public String course;
@@ -40,20 +34,6 @@ public class Device {
     public String distance;
     public String GPS;
     public String GSM;
-
-    public void setFromJson(JSONObject jsonObject) {
-        Iterator<String> keys = jsonObject.keys();
-        while(keys.hasNext()) {
-            String key = keys.next();
-            try {
-                Field f = Device.class.getDeclaredField(key);
-                f.setAccessible(true);
-                f.set(this, jsonObject.get(key));
-            } catch (Throwable e) {
-                Log.w("Device", "setFromJson: " + e.getMessage());
-            }
-        }
-    }
 
     public String[] getDeviceInfoShort(Context context) {
         String[] description = new String[]{"?", ""};

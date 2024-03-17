@@ -44,4 +44,8 @@
 
     <string name="tracking_loading_header">Loading tracking...</string>
     <string name="tracking_loading_body">The location of your trackers is being determined.</string>
+
+    <string name="monitor_notify_channel_name">Movement monitoring</string>
+    <string name="monitor_notify_channel_description">Get notified if your tracker moves.</string>
+    <string name="monitor_notify_device_moved">⚠ Tracker moved</string>
 </resources>
