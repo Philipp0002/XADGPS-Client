@@ -69,7 +69,7 @@ public class MovementMonitorService {
         try {
             JSONArray array = new JSONArray(notifyDevicesRaw);
             for (int i = 0; i < array.length(); i++) {
-                NotifyDevice existingDevice = new NotifyDevice().setFromJson(array.getJSONObject(0));
+                NotifyDevice existingDevice = new NotifyDevice().setFromJson(array.getJSONObject(i));
                 if(existingDevice.id.equals(device.id)){
                     return true;
                 }
@@ -89,7 +89,7 @@ public class MovementMonitorService {
             try {
                 JSONArray array = new JSONArray(notifyDevicesRaw);
                 for (int i = 0; i < array.length(); i++) {
-                    NotifyDevice existingDevice = new NotifyDevice().setFromJson(array.getJSONObject(0));
+                    NotifyDevice existingDevice = new NotifyDevice().setFromJson(array.getJSONObject(i));
                     if (!existingDevice.id.equals(device.id)) {
                         newArray.put(existingDevice.getAsJson());
                     }
