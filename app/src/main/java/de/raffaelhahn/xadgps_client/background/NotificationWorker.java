@@ -17,6 +17,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,13 @@ public class NotificationWorker extends Worker {
     @Override
     public Result doWork() {
         try {
+            SharedPreferences preferences = getApplicationContext().getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE);
+
             GetDeviceListAsync getDeviceListAsync = new GetDeviceListAsync();
+            getDeviceListAsync.paramUserId = preferences.getString("userId", "");
+            getDeviceListAsync.paramTypeId = "0";
+            getDeviceListAsync.paramMapType = "Google";
+            getDeviceListAsync.paramLanguage = Locale.getDefault().getLanguage() + "-" + Locale.getDefault().getCountry();
             getDeviceListAsync.runFetch();
 
             if (getDeviceListAsync.resultObject != null) {
@@ -47,7 +54,6 @@ public class NotificationWorker extends Worker {
                     liveDevices.add(new NotifyDevice().setFromJson(liveDevice));
                 }
 
-                SharedPreferences preferences = getApplicationContext().getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE);
                 String notifyDevicesRaw = preferences.getString(Constants.NOTIFY_DEVICES_PREF_KEY, "[]");
                 JSONArray array = new JSONArray(notifyDevicesRaw);
                 for (int i = 0; i < array.length(); i++) {
