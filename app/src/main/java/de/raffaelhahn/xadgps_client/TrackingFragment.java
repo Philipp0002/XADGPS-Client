@@ -31,7 +31,6 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
-import de.raffaelhahn.xadgps_client.async.Constants;
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
 
 public class TrackingFragment extends Fragment implements DeviceListService.DeviceListUpdateListener {

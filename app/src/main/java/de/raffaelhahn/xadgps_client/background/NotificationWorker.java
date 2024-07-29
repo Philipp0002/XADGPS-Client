@@ -22,8 +22,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import de.raffaelhahn.xadgps_client.NotifyDevice;
+import de.raffaelhahn.xadgps_client.OperatingMode;
 import de.raffaelhahn.xadgps_client.R;
-import de.raffaelhahn.xadgps_client.async.Constants;
+import de.raffaelhahn.xadgps_client.Constants;
 import de.raffaelhahn.xadgps_client.async.GetDeviceListAsync;
 import de.raffaelhahn.xadgps_client.services.MovementMonitorService;
 
@@ -39,14 +40,12 @@ public class NotificationWorker extends Worker {
             SharedPreferences preferences = getApplicationContext().getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE);
 
             GetDeviceListAsync getDeviceListAsync = new GetDeviceListAsync();
-            if(preferences.getString("operating_mode", "").equals("USER")) {
-                getDeviceListAsync.paramUserId = preferences.getString("userId", "");
-                getDeviceListAsync.paramTypeId = "0";
-            } else {
-                getDeviceListAsync.paramUserId = preferences.getString("deviceId", "");
-                getDeviceListAsync.paramTypeId = "1";
-            }
-
+            OperatingMode operatingMode = OperatingMode.valueOf(preferences.getString(Constants.SP_KEY_OPERATING_MODE, ""));
+            getDeviceListAsync.paramUserId = preferences.getString(
+                    operatingMode == OperatingMode.USER ? Constants.SP_KEY_USER_ID : Constants.SP_KEY_DEVICE_ID,
+                    ""
+            );
+            getDeviceListAsync.paramTypeId = operatingMode.numericString;
             getDeviceListAsync.paramMapType = "Google";
             getDeviceListAsync.paramLanguage = Locale.getDefault().getLanguage() + "-" + Locale.getDefault().getCountry();
             getDeviceListAsync.runFetch();

@@ -1,21 +1,21 @@
 package de.raffaelhahn.xadgps_client.services;
 
 import android.content.Context;
-import android.util.Log;
+import android.content.SharedPreferences;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import de.raffaelhahn.xadgps_client.Device;
+import de.raffaelhahn.xadgps_client.OperatingMode;
 import de.raffaelhahn.xadgps_client.async.AsyncCallback;
-import de.raffaelhahn.xadgps_client.async.Constants;
+import de.raffaelhahn.xadgps_client.Constants;
 import de.raffaelhahn.xadgps_client.async.GetDeviceListAsync;
 import de.raffaelhahn.xadgps_client.async.GetDeviceTrackingAsync;
 
@@ -65,13 +65,14 @@ public class DeviceListService {
 
     public void updateDeviceList() {
         GetDeviceListAsync getDeviceListAsync = new GetDeviceListAsync();
-        if(context.getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE).getString("operating_mode", "").equals("USER")) {
-            getDeviceListAsync.paramUserId = context.getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE).getString("userId", "");
-            getDeviceListAsync.paramTypeId = "0";
-        } else {
-            getDeviceListAsync.paramUserId = context.getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE).getString("deviceId", "");
-            getDeviceListAsync.paramTypeId = "1";
-        }
+        SharedPreferences preferences = context.getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE);
+
+        OperatingMode operatingMode = OperatingMode.valueOf(preferences.getString(Constants.SP_KEY_OPERATING_MODE, ""));
+        getDeviceListAsync.paramUserId = preferences.getString(
+                operatingMode == OperatingMode.USER ? Constants.SP_KEY_USER_ID : Constants.SP_KEY_DEVICE_ID,
+                ""
+        );
+        getDeviceListAsync.paramTypeId = operatingMode.numericString;
         getDeviceListAsync.paramMapType = "Google";
         getDeviceListAsync.paramLanguage = Locale.getDefault().getLanguage() + "-" + Locale.getDefault().getCountry();
         getDeviceListAsync.callback = new AsyncCallback<JSONObject>() {

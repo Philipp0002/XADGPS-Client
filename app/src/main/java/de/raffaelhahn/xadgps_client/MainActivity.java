@@ -14,7 +14,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.osmdroid.config.Configuration;
 
-import de.raffaelhahn.xadgps_client.async.Constants;
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         Configuration.getInstance().setUserAgentValue(getPackageName());
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
-        if(!sharedPreferences.contains("operating_mode")){
+        if(!sharedPreferences.contains(Constants.SP_KEY_OPERATING_MODE)){
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;

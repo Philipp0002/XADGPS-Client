@@ -9,6 +9,8 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import de.raffaelhahn.xadgps_client.Constants;
+
 
 public class GetDeviceTrackingAsync extends AsyncTask<Void, Void, Void> {
 

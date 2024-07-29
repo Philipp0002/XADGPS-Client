@@ -6,7 +6,7 @@ import androidx.core.app.ActivityCompat;
 import de.raffaelhahn.xadgps_client.Device;
 import de.raffaelhahn.xadgps_client.NotifyDevice;
 import de.raffaelhahn.xadgps_client.R;
-import de.raffaelhahn.xadgps_client.async.Constants;
+import de.raffaelhahn.xadgps_client.Constants;
 import de.raffaelhahn.xadgps_client.background.BackgroundWorkService;
 
 import android.Manifest;

@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import java.util.Locale;
 
 import de.raffaelhahn.xadgps_client.async.AsyncCallback;
-import de.raffaelhahn.xadgps_client.async.Constants;
 import de.raffaelhahn.xadgps_client.async.LoginAsync;
 
 public class LoginActivity extends AppCompatActivity {
@@ -42,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         LoginAsync loginAsync = new LoginAsync();
         loginAsync.paramName = username;
         loginAsync.paramPass = password;
-        loginAsync.paramLoginType = "3";
+        loginAsync.paramLoginType = OperatingMode.UNKNOWN.numericString;
         loginAsync.paramAppID = Constants.APP_ID;
         loginAsync.paramLanguage = Locale.getDefault().getLanguage() + "-" + Locale.getDefault().getCountry();
 
@@ -51,12 +50,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void received(JSONObject data) throws Exception {
                 if("0".equals(data.getString("state"))){
-                    if("0".equals(data.getString("loginType"))) {
-                        JSONObject userInfo = data.getJSONObject("userInfo");
-                        saveUserData(userInfo.getString("userName"), userInfo.getString("loginName"), userInfo.getString("userID"));
-                    } else {
-                        JSONObject deviceInfo = data.getJSONObject("deviceInfo");
-                        saveDeviceData(deviceInfo.getString("deviceID"), deviceInfo.getString("deviceName"));
+                    switch(OperatingMode.fromNumericString(data.getString("loginType"))) {
+                        case USER:
+                            JSONObject userInfo = data.getJSONObject("userInfo");
+                            saveUserData(userInfo.getString("userName"), userInfo.getString("loginName"), userInfo.getString("userID"));
+                            break;
+                        case DEVICE:
+                            JSONObject deviceInfo = data.getJSONObject("deviceInfo");
+                            saveDeviceData(deviceInfo.getString("deviceID"), deviceInfo.getString("deviceName"));
+                            break;
                     }
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
@@ -85,18 +87,18 @@ public class LoginActivity extends AppCompatActivity {
     public void saveUserData(String username, String loginName, String userId) {
         SharedPreferences preferences = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("operating_mode", "USER");
-        editor.putString("username", username);
-        editor.putString("loginName", loginName);
-        editor.putString("userId", userId);
+        editor.putString(Constants.SP_KEY_OPERATING_MODE, OperatingMode.USER.name());
+        editor.putString(Constants.SP_KEY_USERNAME, username);
+        editor.putString(Constants.SP_KEY_LOGIN_NAME, loginName);
+        editor.putString(Constants.SP_KEY_USER_ID, userId);
         editor.apply();
     }
 
     public void saveDeviceData(String deviceId, String deviceName) {
         SharedPreferences preferences = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("operating_mode", "DEVICE");
-        editor.putString("deviceId", deviceId);
+        editor.putString(Constants.SP_KEY_OPERATING_MODE, OperatingMode.DEVICE.name());
+        editor.putString(Constants.SP_KEY_DEVICE_ID, deviceId);
         editor.apply();
     }
 }
