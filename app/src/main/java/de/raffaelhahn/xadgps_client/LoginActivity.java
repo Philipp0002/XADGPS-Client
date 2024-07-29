@@ -51,8 +51,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void received(JSONObject data) throws Exception {
                 if("0".equals(data.getString("state"))){
-                    JSONObject userInfo = data.getJSONObject("userInfo");
-                    saveUserData(userInfo.getString("userName"), userInfo.getString("loginName"), userInfo.getString("userID"));
+                    if("0".equals(data.getString("loginType"))) {
+                        JSONObject userInfo = data.getJSONObject("userInfo");
+                        saveUserData(userInfo.getString("userName"), userInfo.getString("loginName"), userInfo.getString("userID"));
+                    } else {
+                        JSONObject deviceInfo = data.getJSONObject("deviceInfo");
+                        saveDeviceData(deviceInfo.getString("deviceID"), deviceInfo.getString("deviceName"));
+                    }
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 } else {
@@ -80,9 +85,18 @@ public class LoginActivity extends AppCompatActivity {
     public void saveUserData(String username, String loginName, String userId) {
         SharedPreferences preferences = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("operating_mode", "USER");
         editor.putString("username", username);
         editor.putString("loginName", loginName);
         editor.putString("userId", userId);
+        editor.apply();
+    }
+
+    public void saveDeviceData(String deviceId, String deviceName) {
+        SharedPreferences preferences = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("operating_mode", "DEVICE");
+        editor.putString("deviceId", deviceId);
         editor.apply();
     }
 }

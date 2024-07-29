@@ -65,8 +65,13 @@ public class DeviceListService {
 
     public void updateDeviceList() {
         GetDeviceListAsync getDeviceListAsync = new GetDeviceListAsync();
-        getDeviceListAsync.paramUserId = context.getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE).getString("userId", "");
-        getDeviceListAsync.paramTypeId = "0";
+        if(context.getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE).getString("operating_mode", "").equals("USER")) {
+            getDeviceListAsync.paramUserId = context.getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE).getString("userId", "");
+            getDeviceListAsync.paramTypeId = "0";
+        } else {
+            getDeviceListAsync.paramUserId = context.getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE).getString("deviceId", "");
+            getDeviceListAsync.paramTypeId = "1";
+        }
         getDeviceListAsync.paramMapType = "Google";
         getDeviceListAsync.paramLanguage = Locale.getDefault().getLanguage() + "-" + Locale.getDefault().getCountry();
         getDeviceListAsync.callback = new AsyncCallback<JSONObject>() {

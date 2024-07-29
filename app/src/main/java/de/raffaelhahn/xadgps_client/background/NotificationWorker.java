@@ -39,8 +39,14 @@ public class NotificationWorker extends Worker {
             SharedPreferences preferences = getApplicationContext().getSharedPreferences(Constants.SP_NAME, Context.MODE_PRIVATE);
 
             GetDeviceListAsync getDeviceListAsync = new GetDeviceListAsync();
-            getDeviceListAsync.paramUserId = preferences.getString("userId", "");
-            getDeviceListAsync.paramTypeId = "0";
+            if(preferences.getString("operating_mode", "").equals("USER")) {
+                getDeviceListAsync.paramUserId = preferences.getString("userId", "");
+                getDeviceListAsync.paramTypeId = "0";
+            } else {
+                getDeviceListAsync.paramUserId = preferences.getString("deviceId", "");
+                getDeviceListAsync.paramTypeId = "1";
+            }
+
             getDeviceListAsync.paramMapType = "Google";
             getDeviceListAsync.paramLanguage = Locale.getDefault().getLanguage() + "-" + Locale.getDefault().getCountry();
             getDeviceListAsync.runFetch();
