@@ -1,7 +1,6 @@
-package de.raffaelhahn.xadgps_client;
+package de.raffaelhahn.xadgps_client.ui;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +17,9 @@ import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import de.raffaelhahn.xadgps_client.R;
+import de.raffaelhahn.xadgps_client.Utils;
+import de.raffaelhahn.xadgps_client.model.Device;
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
 import de.raffaelhahn.xadgps_client.services.MovementMonitorService;
 

@@ -1,4 +1,4 @@
-package de.raffaelhahn.xadgps_client;
+package de.raffaelhahn.xadgps_client.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +14,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.osmdroid.config.Configuration;
 
+import de.raffaelhahn.xadgps_client.Constants;
+import de.raffaelhahn.xadgps_client.R;
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
 
 public class MainActivity extends AppCompatActivity {

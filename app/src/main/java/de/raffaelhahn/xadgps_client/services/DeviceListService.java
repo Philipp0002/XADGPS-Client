@@ -12,8 +12,8 @@ import java.util.TimeZone;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import de.raffaelhahn.xadgps_client.Device;
-import de.raffaelhahn.xadgps_client.OperatingMode;
+import de.raffaelhahn.xadgps_client.model.Device;
+import de.raffaelhahn.xadgps_client.model.OperatingMode;
 import de.raffaelhahn.xadgps_client.async.AsyncCallback;
 import de.raffaelhahn.xadgps_client.Constants;
 import de.raffaelhahn.xadgps_client.async.GetDeviceListAsync;

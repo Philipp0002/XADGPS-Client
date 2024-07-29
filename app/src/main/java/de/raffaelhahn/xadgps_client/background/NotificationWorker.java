@@ -21,8 +21,8 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import de.raffaelhahn.xadgps_client.NotifyDevice;
-import de.raffaelhahn.xadgps_client.OperatingMode;
+import de.raffaelhahn.xadgps_client.model.NotifyDevice;
+import de.raffaelhahn.xadgps_client.model.OperatingMode;
 import de.raffaelhahn.xadgps_client.R;
 import de.raffaelhahn.xadgps_client.Constants;
 import de.raffaelhahn.xadgps_client.async.GetDeviceListAsync;

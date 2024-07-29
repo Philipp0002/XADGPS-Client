@@ -1,4 +1,4 @@
-package de.raffaelhahn.xadgps_client;
+package de.raffaelhahn.xadgps_client.ui;
 
 import android.Manifest;
 import android.content.Context;
@@ -31,6 +31,9 @@ import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
 
+import de.raffaelhahn.xadgps_client.Constants;
+import de.raffaelhahn.xadgps_client.R;
+import de.raffaelhahn.xadgps_client.model.Device;
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
 
 public class TrackingFragment extends Fragment implements DeviceListService.DeviceListUpdateListener {

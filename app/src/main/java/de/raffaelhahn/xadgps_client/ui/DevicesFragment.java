@@ -1,4 +1,4 @@
-package de.raffaelhahn.xadgps_client;
+package de.raffaelhahn.xadgps_client.ui;
 
 import android.os.Bundle;
 
@@ -12,11 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.osmdroid.util.GeoPoint;
-import org.osmdroid.views.overlay.Marker;
-
 import java.util.ArrayList;
 
+import de.raffaelhahn.xadgps_client.R;
+import de.raffaelhahn.xadgps_client.model.Device;
 import de.raffaelhahn.xadgps_client.services.DeviceListService;
 
 public class DevicesFragment extends Fragment implements DeviceListService.DeviceListUpdateListener {

@@ -3,8 +3,8 @@ package de.raffaelhahn.xadgps_client.services;
 import android.app.Activity;
 import androidx.core.app.ActivityCompat;
 
-import de.raffaelhahn.xadgps_client.Device;
-import de.raffaelhahn.xadgps_client.NotifyDevice;
+import de.raffaelhahn.xadgps_client.model.Device;
+import de.raffaelhahn.xadgps_client.model.NotifyDevice;
 import de.raffaelhahn.xadgps_client.R;
 import de.raffaelhahn.xadgps_client.Constants;
 import de.raffaelhahn.xadgps_client.background.BackgroundWorkService;

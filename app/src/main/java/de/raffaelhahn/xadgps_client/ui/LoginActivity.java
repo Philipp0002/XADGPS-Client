@@ -1,4 +1,4 @@
-package de.raffaelhahn.xadgps_client;
+package de.raffaelhahn.xadgps_client.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,8 +14,11 @@ import org.json.JSONObject;
 
 import java.util.Locale;
 
+import de.raffaelhahn.xadgps_client.Constants;
+import de.raffaelhahn.xadgps_client.R;
 import de.raffaelhahn.xadgps_client.async.AsyncCallback;
 import de.raffaelhahn.xadgps_client.async.LoginAsync;
+import de.raffaelhahn.xadgps_client.model.OperatingMode;
 
 public class LoginActivity extends AppCompatActivity {
 

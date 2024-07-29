@@ -1,4 +1,4 @@
-package de.raffaelhahn.xadgps_client;
+package de.raffaelhahn.xadgps_client.model;
 
 public enum OperatingMode {
 

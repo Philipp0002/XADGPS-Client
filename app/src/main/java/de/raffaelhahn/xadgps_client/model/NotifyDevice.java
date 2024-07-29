@@ -1,6 +1,5 @@
-package de.raffaelhahn.xadgps_client;
+package de.raffaelhahn.xadgps_client.model;
 
-import android.content.Context;
 import android.util.Log;
 
 import org.json.JSONObject;
