@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         Configuration.getInstance().setUserAgentValue(getPackageName());
 
         SharedPreferences sharedPreferences = getSharedPreferences(Constants.SP_NAME, MODE_PRIVATE);
-        if(!sharedPreferences.contains("userId")){
+        if(!sharedPreferences.contains("operating_mode")){
             startActivity(new Intent(this, LoginActivity.class));
             finish();
             return;
