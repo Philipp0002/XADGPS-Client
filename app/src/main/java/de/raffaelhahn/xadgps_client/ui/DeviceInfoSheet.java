@@ -1,5 +1,7 @@
 package de.raffaelhahn.xadgps_client.ui;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,6 +56,7 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
     private TextView deviceDistance;
     private Button deviceShowOnMapButton;
     private MaterialButton deviceNotifyButton;
+    private MaterialButton deviceSettingsButton;
 
     private Device deviceRef;
 
@@ -112,10 +115,13 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
         deviceDistance = view.findViewById(R.id.deviceDistance);
         deviceShowOnMapButton = view.findViewById(R.id.deviceShowOnMap);
         deviceNotifyButton = view.findViewById(R.id.deviceNotify);
+        deviceSettingsButton = view.findViewById(R.id.deviceSettings);
 
         deviceShowOnMapButton.setVisibility(View.GONE);
+        deviceSettingsButton.setVisibility(View.GONE);
         deviceShowOnMapButton.setOnClickListener(v -> showDeviceOnMap());
         deviceNotifyButton.setOnClickListener(v -> notifyOnMovement());
+        deviceSettingsButton.setOnClickListener(v -> openURL(this.deviceRef.CmdSendUrl));
     }
 
     private void updateView(Device device) {
@@ -147,55 +153,66 @@ public class DeviceInfoSheet extends BottomSheetDialogFragment implements Device
         deviceSpeed.setText(device.speed + " km/h");
         deviceDistance.setText(device.distance);
         deviceShowOnMapButton.setVisibility(View.VISIBLE);
-        if(MovementMonitorService.isMonitoring(getActivity(), deviceRef)) {
-            deviceNotifyButton.setIconResource(R.drawable.no_notify);
-        } else {
-            deviceNotifyButton.setIconResource(R.drawable.notify);
-        }
+        deviceNotifyButton.setIconResource(
+                MovementMonitorService.isMonitoring(getActivity(), deviceRef) ?
+                        R.drawable.no_notify :
+                        R.drawable.notify
+        );
+        deviceSettingsButton.setVisibility(
+                (device.CmdSendUrl == null || device.CmdSendUrl.isEmpty()) ?
+                        View.GONE :
+                        View.VISIBLE
+        );
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        ((MainActivity)getActivity()).deviceListService.registerUpdateListener(this);
+        ((MainActivity) getActivity()).deviceListService.registerUpdateListener(this);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        ((MainActivity)getActivity()).deviceListService.unregisterUpdateListener(this);
+        ((MainActivity) getActivity()).deviceListService.unregisterUpdateListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ((MainActivity)getActivity()).deviceListService.unregisterUpdateListener(this);
+        ((MainActivity) getActivity()).deviceListService.unregisterUpdateListener(this);
     }
 
     @Override
     public void onDeviceListUpdate(ArrayList<Device> deviceList) {
         Optional<Device> optDevice = deviceList.stream().filter(device -> id.equals(device.id)).findFirst();
-        if(optDevice.isPresent()) {
-            if(getActivity() != null){
+        if (optDevice.isPresent()) {
+            if (getActivity() != null) {
                 getActivity().runOnUiThread(() -> updateView(optDevice.get()));
             }
         }
     }
 
     public void showDeviceOnMap() {
-        ((MainActivity)getActivity()).showDeviceOnMap(id);
+        ((MainActivity) getActivity()).showDeviceOnMap(id);
         this.dismiss();
     }
 
     private void notifyOnMovement() {
-        if(!MovementMonitorService.isMonitoring(getActivity(), deviceRef)) {
+        if (!MovementMonitorService.isMonitoring(getActivity(), deviceRef)) {
             boolean started = MovementMonitorService.startMonitoring(getActivity(), deviceRef);
-            if(started) {
+            if (started) {
                 deviceNotifyButton.setIconResource(R.drawable.no_notify);
             }
         } else {
             MovementMonitorService.stopMonitoring(getActivity(), deviceRef);
             deviceNotifyButton.setIconResource(R.drawable.notify);
         }
+    }
+
+    private void openURL(String url) {
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        i.setData(Uri.parse(url));
+        startActivity(i);
     }
 }

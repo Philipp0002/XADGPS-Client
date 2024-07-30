@@ -30,6 +30,14 @@ public class Device extends NotifyDevice {
     public String GPS;
     public String GSM;
 
+    public String CmdSendUrl;
+    public String CmdRecordUrl;
+    public String CellPhone;
+    public String SignalType;
+    public String IsRecharge;
+    public String RechargeUrl;
+    public String BluetoothFunc;
+
     public String[] getDeviceInfoShort(Context context) {
         String[] description = new String[]{"?", ""};
         if(isStop != null) {
